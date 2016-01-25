@@ -9,6 +9,7 @@
     "dist/chiles.js"
   ],
   "scripts": {
+    "release": "./build/publish.sh",
     "karma": "karma start build/karma.config.js",
     "dev": "webpack --config build/webpack.dev.config.js --watch"
   },
