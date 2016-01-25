@@ -5,9 +5,7 @@
     "esprima": "^2.7.1",
     "lodash": "^4.0.0"
   },
-  "main": [
-    "dist/chiles.js"
-  ],
+  "main": "dist/chiles.js",
   "scripts": {
     "release": "./build/publish.sh",
     "karma": "karma start build/karma.config.js",
