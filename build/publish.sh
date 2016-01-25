@@ -8,7 +8,7 @@ VERSION=$(node --eval "console.log(require('./package.json').version);")
 
 git checkout -b build
 
-# npm run build
+npm run build
 git add dist/chiles.js -f
 
 git commit -m "v$VERSION"
