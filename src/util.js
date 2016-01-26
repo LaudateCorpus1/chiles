@@ -13,7 +13,7 @@ function nodeContains(big, small) {
 }
 
 function isNodePosition(sibling, node) {
-  return sibling.range[0] > node.range[1];
+  return sibling.range[0] >= node.range[1];
 }
 
 function _insertNode(parent, child) {
