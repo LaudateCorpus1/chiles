@@ -53,6 +53,9 @@ function _insertNode(parent, child) {
 }
 
 function insertNode(node, parent) {
+  if (node._owner) {
+    return;
+  }
   node._owner = parent._owner;
   node._child = [];
   node._next = null;
