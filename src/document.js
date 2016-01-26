@@ -1,4 +1,13 @@
 import _ from 'lodash';
+import {insertNode} from './util.js';
+
+
+function makeNode(type, range) {
+  return {
+    type: '_' + type,
+    range,
+  };
+}
 
 
 class Document {
@@ -14,6 +23,10 @@ class Document {
       _prev: null,
       _child: [],
     };
+  }
+
+  getSourceFrom(start, end) {
+    return this.chunks.slice(start, end).join('');
   }
 
   getSource(node) {
@@ -93,8 +106,12 @@ class Document {
     rec(this.root, 0, fn);
   }
 
-  insert(text, start) {
+  insert(text, start, type = 'Unknown') {
     this.update(text, start, start);
+    insertNode({
+      type: '_' + type,
+      range: [start, start + text.length],
+    }, this.root);
   }
 
   update(text, start, end) {
@@ -106,7 +123,8 @@ class Document {
     chunks.splice(0, chunks.length);
     chunks.push(...left, ...chunk, ...right);
     let n = this.root;
-    let r, updated;
+    let r;
+    let updated;
     let loop = true;
     while (loop) {
       r = n.range;
