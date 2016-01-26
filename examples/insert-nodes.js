@@ -14,12 +14,17 @@ const doc = chiles(src);
 console.log(doc.repr());
 console.log(doc.toString());
 
+const newNodes = [];
 doc.walkPostOrder(n => {
   if (n.type === 'Line') {
-    doc.insert('// another\n', n.range[0]);
+    newNodes.push(doc.insert(`// ADDED: ${n.value}\n`, n.range[0]));
     n.setSource(`// -> (${n.value})`);
   }
 });
 
 console.log(doc.repr());
 console.log(doc.toString());
+
+_.each(newNodes, n => {
+  console.log([n.getSource()]);
+});

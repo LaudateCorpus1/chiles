@@ -108,10 +108,12 @@ class Document {
 
   insert(text, start, type = 'Unknown') {
     this.update(text, start, start);
-    insertNode({
+    const newNode = {
       type: '_' + type,
       range: [start, start + text.length],
-    }, this.root);
+    };
+    insertNode(newNode, this.root);
+    return newNode;
   }
 
   update(text, start, end) {
