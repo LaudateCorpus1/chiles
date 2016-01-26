@@ -105,7 +105,7 @@ A document object has the following methods:
 
 `str(start, end)`: returns a substring from the source with the specified endpoints.
 
-`repr()`: Utility function displaying all the changes and the node types for the document.
+`repr()`: Utility function displaying all the ranges and the node types for the document.
 
 `walkPostOrder(fn)`: Walks through the document and executes the function `fn` on a node only
  after all its children have been visited. The function `fn` takes in paramters `node` and `level`.
