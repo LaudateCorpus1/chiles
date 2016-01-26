@@ -17,7 +17,8 @@ console.log(doc.toString());
 const newNodes = [];
 doc.walkPostOrder(n => {
   if (n.type === 'Line') {
-    newNodes.push(doc.insert(`// ADDED: ${n.value}\n`, n.range[0]));
+    doc.update('\n', n.range[0], n.range[0], null);
+    newNodes.push(doc.insert(`// ADDED: ${n.value}`, n.range[0] - 1));
     n.setSource(`// -> (${n.value})`);
   }
 });

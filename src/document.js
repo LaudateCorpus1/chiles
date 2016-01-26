@@ -2,14 +2,6 @@ import _ from 'lodash';
 import {insertNode} from './util.js';
 
 
-function makeNode(type, range) {
-  return {
-    type: '_' + type,
-    range,
-  };
-}
-
-
 class Document {
 
   constructor(chunks) {
@@ -25,18 +17,8 @@ class Document {
     };
   }
 
-  getSourceFrom(start, end) {
+  str(start, end) {
     return this.chunks.slice(start, end).join('');
-  }
-
-  getSource(node) {
-    return this.chunks.slice(...node.range).join('');
-  }
-
-  setSource(node, text) {
-    this.update(text, node.range[0], node.range[1]);
-    // Children may have been removed or simply not aligned with their range
-    node._child = [];
   }
 
   repr() {
@@ -107,7 +89,7 @@ class Document {
   }
 
   insert(text, start, type = 'Unknown') {
-    this.update(text, start, start);
+    this._update(text, start, start);
     const newNode = {
       type: '_' + type,
       range: [start, start + text.length],
@@ -116,7 +98,19 @@ class Document {
     return newNode;
   }
 
-  update(text, start, end) {
+  update(text, start, end, type = 'Unknown') {
+    this._update(text, start, end);
+    if (type) {
+      const newNode = {
+        type: '_' + type,
+        range: [start, start + text.length],
+      };
+      insertNode(newNode, this.root);
+      return newNode;
+    }
+  }
+
+  _update(text, start, end) {
     const chunks = this.chunks;
     const chunk = text.split('');
     const left = chunks.slice(0, start);

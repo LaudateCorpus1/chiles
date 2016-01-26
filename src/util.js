@@ -1,11 +1,13 @@
 import _ from 'lodash';
 
 function getSource() {
-  return this._owner.getSource(this);
+  return this._owner.str(...this.range);
 }
 
 function setSource(text) {
-  this._owner.setSource(this, text);
+  this._owner.update(text, this.range[0], this.range[1], null);
+  // Children may have been removed or simply not aligned with their range
+  this._child = [];
 }
 
 function nodeContains(big, small) {
