@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import {insertNode} from './util.js';
 
 
 class Document {
@@ -16,14 +17,8 @@ class Document {
     };
   }
 
-  getSource(node) {
-    return this.chunks.slice(...node.range).join('');
-  }
-
-  setSource(node, text) {
-    this.update(text, node.range[0], node.range[1]);
-    // Children may have been removed or simply not aligned with their range
-    node._child = [];
+  str(start, end) {
+    return this.chunks.slice(start, end).join('');
   }
 
   repr() {
@@ -93,11 +88,29 @@ class Document {
     rec(this.root, 0, fn);
   }
 
-  insert(text, start) {
-    this.update(text, start, start);
+  insert(text, start, type = 'Unknown') {
+    this._update(text, start, start);
+    const newNode = {
+      type: '_' + type,
+      range: [start, start + text.length],
+    };
+    insertNode(newNode, this.root);
+    return newNode;
   }
 
-  update(text, start, end) {
+  update(text, start, end, type = 'Unknown') {
+    this._update(text, start, end);
+    if (type) {
+      const newNode = {
+        type: '_' + type,
+        range: [start, start + text.length],
+      };
+      insertNode(newNode, this.root);
+      return newNode;
+    }
+  }
+
+  _update(text, start, end) {
     const chunks = this.chunks;
     const chunk = text.split('');
     const left = chunks.slice(0, start);
@@ -106,7 +119,8 @@ class Document {
     chunks.splice(0, chunks.length);
     chunks.push(...left, ...chunk, ...right);
     let n = this.root;
-    let r, updated;
+    let r;
+    let updated;
     let loop = true;
     while (loop) {
       r = n.range;
