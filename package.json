@@ -1,16 +1,22 @@
 {
   "name": "chiles",
-  "version": "0.1.1",
+  "description": "esprima wrapper to manipulate javascript files",
+  "main": "dist/chiles.js",
+  "version": "0.1.2",
+  "author": {
+    "name": "Manuel Lopez",
+    "email": "jmlopez.rod@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jmlopez-rod/chiles.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jmlopez-rod/chiles/issues"
+  },
   "dependencies": {
     "esprima": "^2.7.1",
     "lodash": "^4.0.0"
-  },
-  "main": "dist/chiles.js",
-  "scripts": {
-    "release": "./build/publish.sh",
-    "karma": "karma start build/karma.config.js",
-    "build": "webpack --config build/webpack.dev.config.js -p",
-    "dev": "webpack --config build/webpack.dev.config.js --watch"
   },
   "devDependencies": {
     "babel-cli": "^6.4.0",
@@ -33,5 +39,12 @@
       "browser": true,
       "es6": true
     }
+  },
+  "scripts": {
+    "release": "./build/publish.sh",
+    "karma": "karma start build/karma.config.js",
+    "specs": "karma start build/karma.config.js --single-run",
+    "build": "webpack --config build/webpack.config.js -p",
+    "dev": "webpack --config build/webpack.config.js --watch"
   }
 }
