@@ -4,7 +4,7 @@ Wrapper around [esprima](https://www.npmjs.com/package/esprima) to modify javasc
 
 # example
 
-Modify inline comments and add comment extra comments before each comment.
+Modify inline comments and add content before each comment.
 
 ``` js
 const _ = require('lodash');
