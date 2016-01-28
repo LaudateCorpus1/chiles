@@ -2,7 +2,10 @@
   "name": "chiles",
   "description": "esprima wrapper to manipulate javascript files",
   "main": "dist/chiles.js",
-  "version": "0.1.2",
+  "version": "0.1.3",
+  "files": [
+    "dist/chiles.js"
+  ],
   "author": {
     "name": "Manuel Lopez",
     "email": "jmlopez.rod@gmail.com"
